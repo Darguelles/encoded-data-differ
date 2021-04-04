@@ -1,0 +1,15 @@
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
+
+springBoot {
+    buildInfo()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+}
