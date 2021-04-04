@@ -36,7 +36,7 @@ public class BinaryElementServiceTest {
     }
 
     @Test
-    void shouldThrowMissingSideExceptionIfOneElementSideIsNull() {
+    void shouldThrowMissingElementSideExceptionIfOneElementSideIsNull() {
     }
 
     @Test
