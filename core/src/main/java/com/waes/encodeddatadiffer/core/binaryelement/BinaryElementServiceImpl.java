@@ -1,4 +1,4 @@
-package com.waes.encodeddatadiffer.core.register;
+package com.waes.encodeddatadiffer.core.binaryelement;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

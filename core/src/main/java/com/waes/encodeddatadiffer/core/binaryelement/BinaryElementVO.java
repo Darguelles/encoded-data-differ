@@ -1,6 +1,6 @@
-package com.waes.encodeddatadiffer.core.register;
+package com.waes.encodeddatadiffer.core.binaryelement;
 
-import com.waes.encodeddatadiffer.core.register.enums.CompareStatus;
+import com.waes.encodeddatadiffer.core.binaryelement.enums.CompareStatus;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -13,5 +13,5 @@ public class BinaryElementVO {
 
     @NonNull
     private CompareStatus compareStatus;
-    private List<String> reasons;
+    private List<String> differences;
 }

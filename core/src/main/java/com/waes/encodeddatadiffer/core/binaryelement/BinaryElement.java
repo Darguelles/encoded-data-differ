@@ -1,6 +1,5 @@
-package com.waes.encodeddatadiffer.core.register;
+package com.waes.encodeddatadiffer.core.binaryelement;
 
-import com.waes.encodeddatadiffer.core.register.enums.Side;
 import lombok.Getter;
 import lombok.Setter;
 

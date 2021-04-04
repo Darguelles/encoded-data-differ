@@ -1,4 +1,4 @@
-package com.waes.encodeddatadiffer.core.register.enums;
+package com.waes.encodeddatadiffer.core.binaryelement.enums;
 
 public enum CompareStatus {
     EQUAL,

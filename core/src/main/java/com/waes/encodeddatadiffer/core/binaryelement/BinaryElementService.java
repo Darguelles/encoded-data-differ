@@ -1,4 +1,4 @@
-package com.waes.encodeddatadiffer.core.register;
+package com.waes.encodeddatadiffer.core.binaryelement;
 
 public interface BinaryElementService {
 
