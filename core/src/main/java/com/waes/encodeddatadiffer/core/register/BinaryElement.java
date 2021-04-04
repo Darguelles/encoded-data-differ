@@ -6,8 +6,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Register {
+public class BinaryElement {
     private Long id;
-    private Side left;
-    private Side right;
+    private String left;
+    private String right;
 }
