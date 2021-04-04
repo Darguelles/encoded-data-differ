@@ -2,5 +2,5 @@ package com.waes.encodeddatadiffer.core.register.enums;
 
 public enum CompareStatus {
     EQUAL,
-    DIFFERENT
+    DIFFERENT_BY_LENGTH
 }

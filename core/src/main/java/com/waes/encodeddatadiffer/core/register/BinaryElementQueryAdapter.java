@@ -1,6 +1,6 @@
 package com.waes.encodeddatadiffer.core.register;
 
-public interface BinaryElementRepository {
+public interface BinaryElementQueryAdapter {
 
     BinaryElement save(BinaryElement element);
 
