@@ -5,6 +5,11 @@ import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
+import static com.waes.encodeddatadiffer.core.binaryelement.enums.CompareStatus.DIFFERENT_BY_LENGTH;
+import static com.waes.encodeddatadiffer.core.binaryelement.enums.CompareStatus.EQUAL;
+
 @Service
 public class BinaryElementServiceImpl implements BinaryElementService{
 
@@ -17,6 +22,17 @@ public class BinaryElementServiceImpl implements BinaryElementService{
 
     @Override
     public BinaryElementVO compareValues(Long id) {
+        Optional<BinaryElement> fromDatabase = Optional.ofNullable(repository.getById(id));
+        if (fromDatabase.isPresent()) {
+            BinaryElement element = fromDatabase.get();
+            if (element.getRight().equals(element.getLeft())) {
+                return BinaryElementVO.builder().compareStatus(EQUAL).build();
+            } else if (element.getRight().length() != element.getLeft().length()) {
+                return BinaryElementVO.builder().compareStatus(DIFFERENT_BY_LENGTH).build();
+            } else {
+
+            }
+        }
         return null;
     }
 

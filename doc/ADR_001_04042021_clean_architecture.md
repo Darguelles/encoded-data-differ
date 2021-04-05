@@ -16,7 +16,7 @@ tests. Easier to apply TDD.
 
 ## Reference
 - [Microservices: Process, rules and scalability](https://medium.com/quintoandar-tech-blog/rethinking-microservices-process-rules-and-scalability-fd959b4e2ea)
-- [Domain Driven Design](https://martinfowler.com/bliki/EvansClassification.html)
+- [Martin Fowler: Domain Driven Design - Value Objects](https://martinfowler.com/bliki/EvansClassification.html)
 
 ## Status
 Accepted

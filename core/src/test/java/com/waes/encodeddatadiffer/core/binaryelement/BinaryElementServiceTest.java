@@ -1,5 +1,6 @@
 package com.waes.encodeddatadiffer.core.binaryelement;
 
+import com.waes.encodeddatadiffer.core.binaryelement.enums.CompareStatus;
 import com.waes.encodeddatadiffer.core.binaryelement.exceptions.InvalidDataEncryptionException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -7,8 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static com.waes.encodeddatadiffer.core.binaryelement.mocks.BinaryElementMockGenerator.elementWithBadBase64Encoding;
-import static com.waes.encodeddatadiffer.core.binaryelement.mocks.BinaryElementMockGenerator.elementWithOneSide;
+import static com.waes.encodeddatadiffer.core.binaryelement.mocks.BinaryElementMockGenerator.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -44,10 +44,22 @@ public class BinaryElementServiceTest {
 
     @Test
     void shouldReturnEqualStatusIfBothElementSidesAreTheSame() {
+        BinaryElement element = elementWithSameValues();
+        when(binaryElementQueryAdapter.getById(DEFAULT_ID)).thenReturn(element);
+
+        BinaryElementVO result = binaryElementService.compareValues(DEFAULT_ID);
+
+        assertThat(result.getCompareStatus(), is(CompareStatus.EQUAL));
     }
 
     @Test
     void shouldReturnDifferentStatusIfBothElementSidesAreDifferentInSize() {
+        BinaryElement element = elementWithTwoDifferentSides();
+        when(binaryElementQueryAdapter.getById(DEFAULT_ID)).thenReturn(element);
+
+        BinaryElementVO result = binaryElementService.compareValues(DEFAULT_ID);
+
+        assertThat(result.getCompareStatus(), is(CompareStatus.DIFFERENT_BY_LENGTH));
     }
 
     @Test

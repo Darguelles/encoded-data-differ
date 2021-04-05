@@ -6,6 +6,7 @@ public class BinaryElementMockGenerator {
 
     public static final Long DEFAULT_ID = 23521456L;
     public static final String ENCODED_SMALL_MESSAGE_VALUE = "ZW5jb2RlZCBtZXNzYWdl";
+    public static final String DUPLICATED_ENCODED_SMALL_MESSAGE_VALUE = "ZW5jb2RlZCBtZXNzYWdl";
     public static final String ENCODED_LONG_MESSAGE_VALUE = "b3RoZXIgZW5jb2RlZCBtZXNzYWdl";
     public static final String BAD_ENCODED_MESSAGE_VALUE = "...";
 
@@ -23,6 +24,14 @@ public class BinaryElementMockGenerator {
                 .id(DEFAULT_ID)
                 .left(ENCODED_SMALL_MESSAGE_VALUE)
                 .right(BAD_ENCODED_MESSAGE_VALUE)
+                .build();
+    }
+
+    public static BinaryElement elementWithSameValues() {
+        return BinaryElement.builder()
+                .id(DEFAULT_ID)
+                .left(ENCODED_SMALL_MESSAGE_VALUE)
+                .right(DUPLICATED_ENCODED_SMALL_MESSAGE_VALUE)
                 .build();
     }
 
