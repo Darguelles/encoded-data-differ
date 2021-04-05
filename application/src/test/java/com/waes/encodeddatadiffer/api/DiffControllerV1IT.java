@@ -30,9 +30,19 @@ public class DiffControllerV1IT {
     @Autowired
     private MockMvc mvc;
 
-    private String jsonPayload = "{\n" +
+    private String jsonPayloadSmallData = "{\n" +
             "\"id\":\"273645213\",\n" +
             "\"data\":\"ZW5jb2RlZCBtZXNzYWdl\"\n" +
+            "}";
+
+    private String jsonPayloadSmallDataDifferentValue = "{\n" +
+            "\"id\":\"273645213\",\n" +
+            "\"data\":\"cmVjb2RlZCBtZWxlZWdl\"\n" +
+            "}";
+
+    private String jsonPayloadLargerData = "{\n" +
+            "\"id\":\"273645213\",\n" +
+            "\"data\":\"b3RoZXIgZW5jb2RlZCBtZXNzYWdl\"\n" +
             "}";
 
     @Test
@@ -43,7 +53,7 @@ public class DiffControllerV1IT {
         //Then
         mvc.perform(patch("/v1/diff/{id}/left", elementID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonPayload))
+                .content(jsonPayloadSmallData))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
 
         BinaryElement stored = dataDifferFacade.getByElementID(Long.valueOf(elementID));
@@ -58,7 +68,7 @@ public class DiffControllerV1IT {
         //Then
         mvc.perform(patch("/v1/diff/{id}/right", elementID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonPayload))
+                .content(jsonPayloadSmallData))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
 
         BinaryElement stored = dataDifferFacade.getByElementID(Long.valueOf(elementID));
@@ -73,12 +83,12 @@ public class DiffControllerV1IT {
         //Then
         mvc.perform(patch("/v1/diff/{id}/left", elementID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonPayload))
+                .content(jsonPayloadSmallData))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
 
         mvc.perform(patch("/v1/diff/{id}/right", elementID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonPayload))
+                .content(jsonPayloadSmallData))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
 
         mvc.perform(get("/v1/diff/{id}", elementID)
@@ -87,5 +97,53 @@ public class DiffControllerV1IT {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.status",is("EQUAL")))
                 .andExpect(jsonPath("$.totalDifferences",is(0)));
+    }
+
+    @Test
+    void shouldReturnNoDifferencesBetweenSidesDifferentLength() throws Exception {
+        //Given
+        final String elementID = "273645213";
+
+        //Then
+        mvc.perform(patch("/v1/diff/{id}/left", elementID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonPayloadSmallData))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
+
+        mvc.perform(patch("/v1/diff/{id}/right", elementID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonPayloadLargerData))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
+
+        mvc.perform(get("/v1/diff/{id}", elementID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(jsonPath("$.status",is("DIFFERENT_BY_LENGTH")))
+                .andExpect(jsonPath("$.totalDifferences",is(0)));
+    }
+
+    @Test
+    void shouldReturnDifferencesListWhenBothSidesHasSameLengthAndDifferentValue() throws Exception {
+        //Given
+        final String elementID = "273645213";
+
+        //Then
+        mvc.perform(patch("/v1/diff/{id}/left", elementID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonPayloadSmallData))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
+
+        mvc.perform(patch("/v1/diff/{id}/right", elementID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonPayloadSmallDataDifferentValue))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
+
+        mvc.perform(get("/v1/diff/{id}", elementID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(jsonPath("$.status",is("DIFFERENT_BY_CONTENT")))
+                .andExpect(jsonPath("$.totalDifferences",is(2)));
     }
 }
