@@ -43,7 +43,7 @@ public class DiffControllerV1 {
     public ResponseEntity saveRight(@PathVariable String id, @RequestBody DataRequestDTO requestDTO) {
         requestDTO.setSide(Side.RIGHT.name());
         dataDifferFacade.saveElement(requestDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @Operation(summary = "Get differences", description = "Retrieve differences between information stored on each " +
