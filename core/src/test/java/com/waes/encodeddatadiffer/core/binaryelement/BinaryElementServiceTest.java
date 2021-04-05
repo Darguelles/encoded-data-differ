@@ -3,6 +3,8 @@ package com.waes.encodeddatadiffer.core.binaryelement;
 import com.waes.encodeddatadiffer.core.binaryelement.enums.CompareStatus;
 import com.waes.encodeddatadiffer.core.binaryelement.exceptions.InvalidDataEncryptionException;
 import com.waes.encodeddatadiffer.core.binaryelement.exceptions.MissingElementSideException;
+import com.waes.encodeddatadiffer.core.binaryelement.persistence.BinaryElementQueryAdapter;
+import com.waes.encodeddatadiffer.core.binaryelement.services.BinaryElementServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

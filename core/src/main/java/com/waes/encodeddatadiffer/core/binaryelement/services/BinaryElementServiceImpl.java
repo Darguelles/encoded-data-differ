@@ -1,7 +1,9 @@
-package com.waes.encodeddatadiffer.core.binaryelement;
+package com.waes.encodeddatadiffer.core.binaryelement.services;
 
+import com.waes.encodeddatadiffer.core.binaryelement.*;
 import com.waes.encodeddatadiffer.core.binaryelement.exceptions.InvalidDataEncryptionException;
 import com.waes.encodeddatadiffer.core.binaryelement.exceptions.MissingElementSideException;
+import com.waes.encodeddatadiffer.core.binaryelement.persistence.BinaryElementQueryAdapter;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
