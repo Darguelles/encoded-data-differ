@@ -13,5 +13,5 @@ public class BinaryElementVO {
 
     @NonNull
     private CompareStatus compareStatus;
-    private List<String> differences;
+    private List<Difference> differences;
 }

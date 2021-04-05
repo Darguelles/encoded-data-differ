@@ -5,10 +5,10 @@ import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
-import static com.waes.encodeddatadiffer.core.binaryelement.enums.CompareStatus.DIFFERENT_BY_LENGTH;
-import static com.waes.encodeddatadiffer.core.binaryelement.enums.CompareStatus.EQUAL;
+import static com.waes.encodeddatadiffer.core.binaryelement.enums.CompareStatus.*;
 
 @Service
 public class BinaryElementServiceImpl implements BinaryElementService{
@@ -30,7 +30,11 @@ public class BinaryElementServiceImpl implements BinaryElementService{
             } else if (element.getRight().length() != element.getLeft().length()) {
                 return BinaryElementVO.builder().compareStatus(DIFFERENT_BY_LENGTH).build();
             } else {
+                String leftValue = decodeBase64(element.getLeft());
+                String rightValue = decodeBase64(element.getRight());
+                List<Difference> differences = DifferenceCalculator.scanForDifferences(leftValue, rightValue);
 
+                return BinaryElementVO.builder().compareStatus(DIFFERENT_BY_CONTENT).differences(differences).build();
             }
         }
         return null;
@@ -61,5 +65,10 @@ public class BinaryElementServiceImpl implements BinaryElementService{
             return true;
         }
         throw new InvalidDataEncryptionException();
+    }
+
+    private String decodeBase64(String value) {
+        byte[] decodedBytes = Base64.decodeBase64(value);
+        return new String(decodedBytes);
     }
 }
