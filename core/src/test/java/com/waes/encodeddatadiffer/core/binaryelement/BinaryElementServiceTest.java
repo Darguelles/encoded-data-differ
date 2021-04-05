@@ -85,9 +85,4 @@ public class BinaryElementServiceTest {
         });
     }
 
-    @Test
-    void shouldGenerateANewIdIfNotSpecifiedInElement() {
-
-    }
-
 }

@@ -75,4 +75,5 @@ public class BinaryElementServiceImpl implements BinaryElementService{
         byte[] decodedBytes = Base64.decodeBase64(value);
         return new String(decodedBytes);
     }
+
 }

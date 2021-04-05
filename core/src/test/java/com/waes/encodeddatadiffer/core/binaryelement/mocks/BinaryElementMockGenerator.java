@@ -12,6 +12,14 @@ public class BinaryElementMockGenerator {
     public static final String ENCODED_SMALL_MESSAGE_VALUE_SAME_LENGTH = "cmVjb2RlZCBtZWxlZWdl"; // recoded meleege
 
 
+    public static BinaryElement elementWithoutID() {
+        return BinaryElement.builder()
+                .id(null)
+                .left(ENCODED_SMALL_MESSAGE_VALUE)
+                .right(null)
+                .build();
+    }
+
     public static BinaryElement elementWithOneSide() {
         return BinaryElement.builder()
                 .id(DEFAULT_ID)

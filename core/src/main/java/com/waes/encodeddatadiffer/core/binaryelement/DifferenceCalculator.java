@@ -12,13 +12,14 @@ public class DifferenceCalculator {
 
         int index = -1;
         for (int i = 0; i < leftArray.length - 1; i++) {
+            // detect for different characters
             if (!leftArray[i].equals(rightArray[i])) {
                 if (index < 0) {
-                    // Start index
+                    // Start difference scan
                     index = i;
                 }
             } else {
-                if (index >= 0) {
+                if (index >= 0) { // There's a difference scan in progress
                    // Store difference in array
                     result.add(Difference.builder()
                             .index(index).offset(i).result(left.substring(index, i)).build());
