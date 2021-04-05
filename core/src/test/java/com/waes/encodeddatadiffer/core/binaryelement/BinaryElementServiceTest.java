@@ -64,6 +64,14 @@ public class BinaryElementServiceTest {
 
     @Test
     void shouldReturnDifferencesListWhenElementHasSidesWithEqualSizeAndDifferentData() {
+        BinaryElement element = elementWithTwoDifferentSidesWithSameLength();
+        when(binaryElementQueryAdapter.getById(DEFAULT_ID)).thenReturn(element);
+
+        BinaryElementVO result = binaryElementService.compareValues(DEFAULT_ID);
+
+        assertThat(result.getCompareStatus(), is(CompareStatus.DIFFERENT_BY_CONTENT));
+        assertThat(result.getDifferences().get(0).getResult(), is("en"));
+        assertThat(result.getDifferences().get(1).getResult(), is("ssa"));
     }
 
     @Test
