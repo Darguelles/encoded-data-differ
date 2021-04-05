@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface BinaryElementMemoryRepository extends CrudRepository<BinaryElement, Long> {
 
-    BinaryElement getById(Long id);
+    BinaryElement getByElementId(Long id);
 }

@@ -22,6 +22,6 @@ public class BinaryElementQueryAdapterBean implements BinaryElementQueryAdapter 
 
     @Override
     public BinaryElement getById(Long id) {
-        return binaryElementMemoryRepository.getById(id);
+        return binaryElementMemoryRepository.getByElementId(id);
     }
 }
