@@ -1,6 +1,7 @@
 package com.waes.encodeddatadiffer.core.binaryelement;
 
 import com.waes.encodeddatadiffer.core.binaryelement.exceptions.InvalidDataEncryptionException;
+import com.waes.encodeddatadiffer.core.binaryelement.exceptions.MissingElementSideException;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,9 @@ public class BinaryElementServiceImpl implements BinaryElementService{
         Optional<BinaryElement> fromDatabase = Optional.ofNullable(repository.getById(id));
         if (fromDatabase.isPresent()) {
             BinaryElement element = fromDatabase.get();
+            if (element.getLeft() == null || element.getRight() == null) {
+                throw new MissingElementSideException(element.getLeft() == null ? "left" : "right");
+            }
             if (element.getRight().equals(element.getLeft())) {
                 return BinaryElementVO.builder().compareStatus(EQUAL).build();
             } else if (element.getRight().length() != element.getLeft().length()) {

@@ -2,6 +2,7 @@ package com.waes.encodeddatadiffer.core.binaryelement;
 
 import com.waes.encodeddatadiffer.core.binaryelement.enums.CompareStatus;
 import com.waes.encodeddatadiffer.core.binaryelement.exceptions.InvalidDataEncryptionException;
+import com.waes.encodeddatadiffer.core.binaryelement.exceptions.MissingElementSideException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -76,14 +77,17 @@ public class BinaryElementServiceTest {
 
     @Test
     void shouldThrowMissingElementSideExceptionIfOneElementSideIsNull() {
+        BinaryElement element = elementWithOneSide();
+        when(binaryElementQueryAdapter.getById(DEFAULT_ID)).thenReturn(element);
+
+        assertThrows(MissingElementSideException.class, () -> {
+            binaryElementService.compareValues(DEFAULT_ID);
+        });
     }
 
     @Test
     void shouldGenerateANewIdIfNotSpecifiedInElement() {
-    }
 
-    @Test
-    void shouldThrowMissingSideExceptionIfOneElementSideIsEmpty() {
     }
 
 }
