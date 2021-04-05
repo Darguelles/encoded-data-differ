@@ -8,10 +8,12 @@ import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import static com.waes.encodeddatadiffer.core.binaryelement.enums.CompareStatus.*;
+import static java.util.Collections.emptyList;
 
 @Service
 public class BinaryElementServiceImpl implements BinaryElementService{
@@ -32,9 +34,13 @@ public class BinaryElementServiceImpl implements BinaryElementService{
                 throw new MissingElementSideException(element.getLeft() == null ? "left" : "right");
             }
             if (element.getRight().equals(element.getLeft())) {
-                return BinaryElementVO.builder().compareStatus(EQUAL).build();
+                return BinaryElementVO.builder().compareStatus(EQUAL)
+                        .differences(emptyList())
+                        .build();
             } else if (element.getRight().length() != element.getLeft().length()) {
-                return BinaryElementVO.builder().compareStatus(DIFFERENT_BY_LENGTH).build();
+                return BinaryElementVO.builder().compareStatus(DIFFERENT_BY_LENGTH)
+                        .differences(emptyList())
+                        .build();
             } else {
                 String leftValue = decodeBase64(element.getLeft());
                 String rightValue = decodeBase64(element.getRight());

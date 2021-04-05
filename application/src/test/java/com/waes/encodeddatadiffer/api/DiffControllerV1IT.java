@@ -13,8 +13,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = {EncodedDataDifferApplicationTests.class})
@@ -37,7 +40,7 @@ public class DiffControllerV1IT {
         //Given
         final String elementID = "273645213";
 
-        //When
+        //Then
         mvc.perform(patch("/v1/diff/{id}/left", elementID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonPayload))
@@ -52,7 +55,7 @@ public class DiffControllerV1IT {
         //Given
         final String elementID = "273645213";
 
-        //When
+        //Then
         mvc.perform(patch("/v1/diff/{id}/right", elementID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonPayload))
@@ -62,4 +65,27 @@ public class DiffControllerV1IT {
         assertTrue(stored.getRight().equals("ZW5jb2RlZCBtZXNzYWdl"));
     }
 
+    @Test
+    void shouldReturnNoDifferencesFromTwoSameElementSides() throws Exception {
+        //Given
+        final String elementID = "273645213";
+
+        //Then
+        mvc.perform(patch("/v1/diff/{id}/left", elementID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonPayload))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
+
+        mvc.perform(patch("/v1/diff/{id}/right", elementID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonPayload))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
+
+        mvc.perform(get("/v1/diff/{id}", elementID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(jsonPath("$.status",is("EQUAL")))
+                .andExpect(jsonPath("$.totalDifferences",is(0)));
+    }
 }

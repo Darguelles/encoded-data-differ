@@ -1,11 +1,13 @@
 package com.waes.encodeddatadiffer.api;
 
 import com.waes.encodeddatadiffer.api.dto.DataRequestDTO;
+import com.waes.encodeddatadiffer.api.dto.DifferenceResponseDTO;
 import com.waes.encodeddatadiffer.api.facade.DataDifferFacade;
 import com.waes.encodeddatadiffer.core.binaryelement.enums.Side;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +34,13 @@ public class DiffControllerV1 {
         requestDTO.setSide(Side.RIGHT.name());
         dataDifferFacade.saveElement(requestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping(path = "{id}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<DifferenceResponseDTO> getDiff(@PathVariable String id) {
+        DifferenceResponseDTO response = dataDifferFacade.compareElementData(Long.valueOf(id));
+        return ResponseEntity.ok(response);
     }
 
 }
