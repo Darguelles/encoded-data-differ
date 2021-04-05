@@ -1,6 +1,7 @@
 package com.waes.encodeddatadiffer.core.binaryelement.services;
 
 import com.waes.encodeddatadiffer.core.binaryelement.*;
+import com.waes.encodeddatadiffer.core.binaryelement.exceptions.ElementNotFoundException;
 import com.waes.encodeddatadiffer.core.binaryelement.exceptions.InvalidDataEncryptionException;
 import com.waes.encodeddatadiffer.core.binaryelement.exceptions.MissingElementSideException;
 import com.waes.encodeddatadiffer.core.binaryelement.persistence.BinaryElementQueryAdapter;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.MissingResourceException;
 import java.util.Optional;
 
 import static com.waes.encodeddatadiffer.core.binaryelement.enums.CompareStatus.*;
@@ -47,8 +49,9 @@ public class BinaryElementServiceImpl implements BinaryElementService{
 
                 return BinaryElementVO.builder().compareStatus(DIFFERENT_BY_CONTENT).differences(differences).build();
             }
+        } else {
+            throw new ElementNotFoundException("No element found for ID: " + id);
         }
-        return null;
     }
 
 
