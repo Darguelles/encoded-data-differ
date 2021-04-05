@@ -1,5 +1,6 @@
 package com.waes.encodeddatadiffer.api;
 
+import com.waes.encodeddatadiffer.EncodedDataDifferApplication;
 import com.waes.encodeddatadiffer.EncodedDataDifferApplicationTests;
 import com.waes.encodeddatadiffer.api.facade.DataDifferFacade;
 import com.waes.encodeddatadiffer.core.binaryelement.BinaryElement;
@@ -20,7 +21,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = {EncodedDataDifferApplicationTests.class})
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = {EncodedDataDifferApplication.class})
 @AutoConfigureMockMvc
 public class DiffControllerV1IT {
 

@@ -6,12 +6,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication(scanBasePackages = "com.waes.encodeddatadiffer")
-@EnableJpaRepositories(basePackages = "com.waes.encodeddatadiffer.repository")
+@SpringBootTest
 public class EncodedDataDifferApplicationTests {
 
-	public static void main(final String[] args) {
-		SpringApplication.run(EncodedDataDifferApplicationTests.class, args);
+	@Test
+	void contextLoads() {
 	}
 
 }
