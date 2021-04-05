@@ -1,7 +1,10 @@
 package com.waes.encodeddatadiffer.core.binaryelement;
 
+import com.waes.encodeddatadiffer.core.binaryelement.exceptions.InvalidDataEncryptionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Base64;
 
 @Service
 public class BinaryElementServiceImpl implements BinaryElementService{
@@ -20,6 +23,30 @@ public class BinaryElementServiceImpl implements BinaryElementService{
 
     @Override
     public BinaryElement save(BinaryElement binaryElement) {
+        if (isValidElement(binaryElement)) {
+            return repository.save(binaryElement);
+        }
         return null;
+    }
+
+    private boolean isValidElement(BinaryElement binaryElement) {
+        boolean valid = false;
+        if ( binaryElement.getLeft() != null) {
+            valid = isBase64(binaryElement.getLeft());
+        }
+        if ( binaryElement.getRight() != null) {
+            valid = isBase64(binaryElement.getRight());
+        }
+        return valid;
+    }
+
+    private boolean isBase64(String value) {
+        Base64.Decoder decoder = Base64.getDecoder();
+        try {
+            decoder.decode(value);
+        } catch (IllegalArgumentException e) {
+            throw new InvalidDataEncryptionException();
+        }
+        return true;
     }
 }

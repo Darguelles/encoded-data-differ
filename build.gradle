@@ -28,6 +28,8 @@ allprojects {
 	apply plugin: 'org.springframework.boot'
 	apply plugin: 'io.spring.dependency-management'
 
+	apply from: "${rootProject.rootDir}/config/tests.gradle"
+
 	group = 'com.waes'
 	version = '0.0.1-SNAPSHOT'
 	sourceCompatibility = '11'
@@ -58,8 +60,4 @@ wrapper {
 dependencies {
 	compile project(':core')
 	compile project(':application')
-}
-
-test {
-	useJUnitPlatform()
 }
