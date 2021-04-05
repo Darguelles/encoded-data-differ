@@ -42,6 +42,7 @@ allprojects {
 	dependencies {
 		compileOnly group: 'org.projectlombok', name: 'lombok', version: lombokVersion
 		compile group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+		compile group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.5.2'
 		annotationProcessor group: 'org.projectlombok', name:'lombok', version: lombokVersion
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	}
