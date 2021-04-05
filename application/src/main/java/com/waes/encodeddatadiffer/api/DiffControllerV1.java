@@ -10,10 +10,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 @RestController
 @RequestMapping("v1/diff")
@@ -28,28 +29,39 @@ public class DiffControllerV1 {
 
     @Operation(summary = "Save left value", description = "Stores encrypted data in the left side of the structure",
             tags = { "differ base64" })
-    @ApiResponses(value = {@ApiResponse(responseCode = "204", description = "successful operation") })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "successful operation"),
+            @ApiResponse(responseCode = "400", description = "Bad input format")
+    })
     @PatchMapping("{id}/left")
     public ResponseEntity saveLeft(@PathVariable String id, @RequestBody DataRequestDTO requestDTO) {
         requestDTO.setSide(Side.LEFT.name());
         dataDifferFacade.saveElement(requestDTO);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        return ResponseEntity.status(NO_CONTENT).build();
     }
 
     @Operation(summary = "Save right value", description = "Stores encrypted data in the right side of the structure",
             tags = { "differ base64" })
-    @ApiResponses(value = {@ApiResponse(responseCode = "204", description = "successful operation") })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "successful operation"),
+            @ApiResponse(responseCode = "400", description = "Bad input format")
+    })
     @PatchMapping("{id}/right")
     public ResponseEntity saveRight(@PathVariable String id, @RequestBody DataRequestDTO requestDTO) {
         requestDTO.setSide(Side.RIGHT.name());
         dataDifferFacade.saveElement(requestDTO);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        return ResponseEntity.status(NO_CONTENT).build();
     }
 
     @Operation(summary = "Get differences", description = "Retrieve differences between information stored on each " +
             "side of the structure for a given ID", tags = { "differ base64" })
-    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful operation",
-            content = @Content(schema = @Schema(implementation = DifferenceResponseDTO.class))) })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation",
+            content = @Content(schema = @Schema(implementation = DifferenceResponseDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Bad input format"),
+            @ApiResponse(responseCode = "404", description = "The specified resource does not exists."),
+            @ApiResponse(responseCode = "422", description = "Cannot perform operation. Missing parameters.")
+    })
     @GetMapping(path = "{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DifferenceResponseDTO> getDiff(@PathVariable String id) {
