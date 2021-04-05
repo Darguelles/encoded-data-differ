@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * BinaryElementVO represents the Value Object for the proposed business case. Depending on the information retrieved
+ * from database and process, BinaryElementVO will be used as immutable entity for communication with Application layer.
+ */
 @Getter
 @Builder
 public class BinaryElementVO {

@@ -4,6 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 
+/**
+ * BinaryElement represents a single data structure to store values for left and right sections targeting to the same ID.
+ */
 @Getter
 @Setter
 @Builder

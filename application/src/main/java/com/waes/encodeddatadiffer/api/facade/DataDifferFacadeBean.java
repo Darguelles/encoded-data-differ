@@ -4,13 +4,11 @@ import com.waes.encodeddatadiffer.api.dto.DataRequestDTO;
 import com.waes.encodeddatadiffer.api.dto.DifferenceResponseDTO;
 import com.waes.encodeddatadiffer.core.binaryelement.BinaryElement;
 import com.waes.encodeddatadiffer.core.binaryelement.BinaryElementVO;
-import com.waes.encodeddatadiffer.core.binaryelement.Difference;
 import com.waes.encodeddatadiffer.core.binaryelement.services.BinaryElementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service

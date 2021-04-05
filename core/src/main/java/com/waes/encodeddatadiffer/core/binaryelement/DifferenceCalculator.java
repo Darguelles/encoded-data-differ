@@ -3,6 +3,9 @@ package com.waes.encodeddatadiffer.core.binaryelement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * DifferenceCalculator uses an algorithm to calculate where differences are present in 2 given strings.
+ */
 public class DifferenceCalculator {
 
     public static List<Difference> scanForDifferences(String left, String right) {
