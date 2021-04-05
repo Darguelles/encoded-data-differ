@@ -55,6 +55,11 @@ public class BinaryElementServiceImpl implements BinaryElementService{
         return null;
     }
 
+    @Override
+    public Optional<BinaryElement> getById(Long id) {
+        return Optional.ofNullable(repository.getById(id));
+    }
+
     private boolean isValidElement(BinaryElement binaryElement) {
         boolean valid = false;
         if ( binaryElement.getLeft() != null) {

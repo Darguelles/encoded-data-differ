@@ -33,7 +33,7 @@ public class BinaryElementServiceTest {
 
         BinaryElement saved = binaryElementService.save(element);
 
-        assertThat(element.getId(), is(saved.getId()));
+        assertThat(element.getElementId(), is(saved.getElementId()));
     }
 
     @Test

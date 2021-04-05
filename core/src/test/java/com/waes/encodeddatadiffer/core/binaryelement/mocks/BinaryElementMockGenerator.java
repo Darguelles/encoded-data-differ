@@ -14,7 +14,7 @@ public class BinaryElementMockGenerator {
 
     public static BinaryElement elementWithoutID() {
         return BinaryElement.builder()
-                .id(null)
+                .elementId(null)
                 .left(ENCODED_SMALL_MESSAGE_VALUE)
                 .right(null)
                 .build();
@@ -22,7 +22,7 @@ public class BinaryElementMockGenerator {
 
     public static BinaryElement elementWithOneSide() {
         return BinaryElement.builder()
-                .id(DEFAULT_ID)
+                .elementId(DEFAULT_ID)
                 .left(ENCODED_SMALL_MESSAGE_VALUE)
                 .right(null)
                 .build();
@@ -30,7 +30,7 @@ public class BinaryElementMockGenerator {
 
     public static BinaryElement elementWithBadBase64Encoding() {
         return BinaryElement.builder()
-                .id(DEFAULT_ID)
+                .elementId(DEFAULT_ID)
                 .left(ENCODED_SMALL_MESSAGE_VALUE)
                 .right(BAD_ENCODED_MESSAGE_VALUE)
                 .build();
@@ -38,7 +38,7 @@ public class BinaryElementMockGenerator {
 
     public static BinaryElement elementWithSameValues() {
         return BinaryElement.builder()
-                .id(DEFAULT_ID)
+                .elementId(DEFAULT_ID)
                 .left(ENCODED_SMALL_MESSAGE_VALUE)
                 .right(DUPLICATED_ENCODED_SMALL_MESSAGE_VALUE)
                 .build();
@@ -46,7 +46,7 @@ public class BinaryElementMockGenerator {
 
     public static BinaryElement elementWithTwoDifferentSides() {
         return BinaryElement.builder()
-                .id(DEFAULT_ID)
+                .elementId(DEFAULT_ID)
                 .left(ENCODED_SMALL_MESSAGE_VALUE)
                 .right(ENCODED_LONG_MESSAGE_VALUE)
                 .build();
@@ -54,7 +54,7 @@ public class BinaryElementMockGenerator {
 
     public static BinaryElement elementWithTwoDifferentSidesWithSameLength() {
         return BinaryElement.builder()
-                .id(DEFAULT_ID)
+                .elementId(DEFAULT_ID)
                 .left(ENCODED_SMALL_MESSAGE_VALUE)
                 .right(ENCODED_SMALL_MESSAGE_VALUE_SAME_LENGTH)
                 .build();
