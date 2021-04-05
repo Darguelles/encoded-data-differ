@@ -3,9 +3,9 @@ package com.waes.encodeddatadiffer.repository;
 import com.waes.encodeddatadiffer.core.binaryelement.BinaryElement;
 import com.waes.encodeddatadiffer.core.binaryelement.persistence.BinaryElementQueryAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
-@Repository
+@Component
 public class BinaryElementQueryAdapterBean implements BinaryElementQueryAdapter {
 
     private BinaryElementMemoryRepository binaryElementMemoryRepository;
@@ -17,11 +17,11 @@ public class BinaryElementQueryAdapterBean implements BinaryElementQueryAdapter 
 
     @Override
     public BinaryElement save(BinaryElement element) {
-        return null;
+        return binaryElementMemoryRepository.save(element);
     }
 
     @Override
     public BinaryElement getById(Long id) {
-        return null;
+        return binaryElementMemoryRepository.getById(id);
     }
 }
