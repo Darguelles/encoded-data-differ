@@ -5,6 +5,10 @@ import com.waes.encodeddatadiffer.core.binaryelement.persistence.BinaryElementQu
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * BinaryElementQueryAdapterBean implement the core interface BinaryElementQueryAdapter.
+ * Performs integration between core contract and repository implementation.
+ */
 @Component
 public class BinaryElementQueryAdapterBean implements BinaryElementQueryAdapter {
 
