@@ -1,4 +1,4 @@
-package com.waes.encodeddatadiffer.api.exceptions;
+package com.waes.encodeddatadiffer.api.handler;
 
 import com.waes.encodeddatadiffer.core.binaryelement.exceptions.ElementNotFoundException;
 import com.waes.encodeddatadiffer.core.binaryelement.exceptions.InvalidDataEncryptionException;

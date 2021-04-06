@@ -1,6 +1,7 @@
 package com.waes.encodeddatadiffer.api.facade;
 
 import com.waes.encodeddatadiffer.api.dto.DataRequestDTO;
+import com.waes.encodeddatadiffer.api.dto.DataResponseDTO;
 import com.waes.encodeddatadiffer.api.dto.DifferenceResponseDTO;
 import com.waes.encodeddatadiffer.core.binaryelement.BinaryElement;
 import com.waes.encodeddatadiffer.core.binaryelement.BinaryElementVO;
@@ -8,7 +9,9 @@ import com.waes.encodeddatadiffer.core.binaryelement.services.BinaryElementServi
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Locale;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,49 +25,64 @@ public class DataDifferFacadeBean implements DataDifferFacade {
     }
 
     @Override
-    public void saveElement(DataRequestDTO requestDTO) {
-        Long elementID = Long.parseLong(requestDTO.getId());
+    public DataResponseDTO saveElement(DataRequestDTO requestDTO) {
+        Long elementID = getLongID(requestDTO);
         BinaryElement element;
+
         Optional<BinaryElement> fromDatabase = binaryElementService.getById(elementID);
         if (fromDatabase.isPresent()) {
-            element = fromDatabase.get();
-            switch (requestDTO.getSide()) {
-                case "LEFT":
-                    element.setLeft(requestDTO.getData());
-                    break;
-
-                case "RIGHT":
-                    element.setRight(requestDTO.getData());
-                    break;
-                default:
-                    element = BinaryElement.builder()
-                            .elementId(elementID)
-                            .build();
-            }
+            element = updateBinaryElement(requestDTO, elementID, fromDatabase);
         } else {
-            switch (requestDTO.getSide()) {
-                case "LEFT" :
-                    element = BinaryElement.builder()
-                            .elementId(elementID)
-                            .left(requestDTO.getData())
-                            .build();
-                    break;
-
-                case "RIGHT" :
-                    element = BinaryElement.builder()
-                            .elementId(elementID)
-                            .right(requestDTO.getData())
-                            .build();
-                    break;
-
-                default:
-                    element = BinaryElement.builder()
-                            .elementId(elementID)
-                            .build();
-            }
+            element = createBinaryElement(requestDTO, elementID);
         }
 
-        binaryElementService.save(element);
+        BinaryElement saved = binaryElementService.save(element);
+        return DataResponseDTO.builder().id(saved.getElementId().toString())
+                .left(saved.getLeft()).right(saved.getRight()).build();
+    }
+
+    private BinaryElement createBinaryElement(DataRequestDTO requestDTO, Long elementID) {
+        BinaryElement element;
+        switch (requestDTO.getSide().toUpperCase()) {
+            case "LEFT" :
+                element = BinaryElement.builder()
+                        .elementId(elementID)
+                        .left(requestDTO.getData())
+                        .build();
+                break;
+
+            case "RIGHT" :
+                element = BinaryElement.builder()
+                        .elementId(elementID)
+                        .right(requestDTO.getData())
+                        .build();
+                break;
+
+            default:
+                element = BinaryElement.builder()
+                        .elementId(elementID)
+                        .build();
+        }
+        return element;
+    }
+
+    private BinaryElement updateBinaryElement(DataRequestDTO requestDTO, Long elementID, Optional<BinaryElement> fromDatabase) {
+        BinaryElement element;
+        element = fromDatabase.get();
+        switch (requestDTO.getSide().toUpperCase()) {
+            case "LEFT":
+                element.setLeft(requestDTO.getData());
+                break;
+
+            case "RIGHT":
+                element.setRight(requestDTO.getData());
+                break;
+            default:
+                element = BinaryElement.builder()
+                        .elementId(elementID)
+                        .build();
+        }
+        return element;
     }
 
     @Override
@@ -87,5 +105,16 @@ public class DataDifferFacadeBean implements DataDifferFacade {
             return fromDatabase.get();
 
         return null;
+    }
+
+
+    private Long getLongID(DataRequestDTO requestDTO) {
+        Long elementID;
+        if (requestDTO.getId() == null) {
+            elementID = new Random().nextLong();
+        } else {
+            elementID = Long.parseLong(requestDTO.getId());
+        }
+        return elementID;
     }
 }

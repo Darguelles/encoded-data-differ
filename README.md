@@ -100,21 +100,21 @@ Instead, I propose to have the following resource definition for API:
 
 Save new element
 ```
-URL: localhost:8080/v2/diff
+URL: localhost:8080/v2/element
 Method: POST 
 Body: {"side":"LEFT", "data" : "ZW5jb2RlZCBtZXNzYWdl"}
 ```
 
 Update stored element
 ```
-URL: localhost:8080/v2/diff/{ID}
+URL: localhost:8080/v2/element/{ID}
 Method: PATCH 
 Body: {"side":"LEFT", "data" : "ZW5jb2RlZCBtZXNzYWdl"}
 ```
 
 Get differences
 ```
-URL: localhost:8080/v2/diff/{ID}
+URL: localhost:8080/v2/element/{ID}/diff
 Method: GET
 ```
 
