@@ -11,7 +11,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static com.waes.encodeddatadiffer.core.binaryelement.mocks.BinaryElementMockGenerator.*;
+import static com.waes.encodeddatadiffer.core.binaryelement.mocks.BinaryElementMockGenerator.DEFAULT_ID;
+import static com.waes.encodeddatadiffer.core.binaryelement.mocks.BinaryElementMockGenerator.elementWithBadBase64Encoding;
+import static com.waes.encodeddatadiffer.core.binaryelement.mocks.BinaryElementMockGenerator.elementWithOneSide;
+import static com.waes.encodeddatadiffer.core.binaryelement.mocks.BinaryElementMockGenerator.elementWithSameValues;
+import static com.waes.encodeddatadiffer.core.binaryelement.mocks.BinaryElementMockGenerator.elementWithTwoDifferentSides;
+import static com.waes.encodeddatadiffer.core.binaryelement.mocks.BinaryElementMockGenerator.elementWithTwoDifferentSidesWithSameLength;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;

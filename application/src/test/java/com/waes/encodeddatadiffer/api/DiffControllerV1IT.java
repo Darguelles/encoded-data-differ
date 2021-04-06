@@ -30,30 +30,30 @@ public class DiffControllerV1IT {
     @Autowired
     private MockMvc mvc;
 
-    private String jsonPayloadBadData = "{\n" +
-            "\"id\":\"273645213\",\n" +
-            "\"data\":\"...\"\n" +
-            "}";
+    private String jsonPayloadBadData = "{\n"
+            + "\"id\":\"273645213\",\n"
+            + "\"data\":\"...\"\n"
+            + "}";
 
-    private String jsonPayloadBadID = "{\n" +
-            "\"id\":\"273er4tff\",\n" +
-            "\"data\":\"ZW5jb2RlZCBtZXNzYWdl\"\n" +
-            "}";
+    private String jsonPayloadBadID = "{\n"
+            + "\"id\":\"273er4tff\",\n"
+            + "\"data\":\"ZW5jb2RlZCBtZXNzYWdl\"\n"
+            + "}";
 
-    private String jsonPayloadSmallData = "{\n" +
-            "\"id\":\"273645213\",\n" +
-            "\"data\":\"ZW5jb2RlZCBtZXNzYWdl\"\n" +
-            "}";
+    private String jsonPayloadSmallData = "{\n"
+            + "\"id\":\"273645213\",\n"
+            + "\"data\":\"ZW5jb2RlZCBtZXNzYWdl\"\n"
+            + "}";
 
-    private String jsonPayloadSmallDataDifferentValue = "{\n" +
-            "\"id\":\"273645213\",\n" +
-            "\"data\":\"cmVjb2RlZCBtZWxlZWdl\"\n" +
-            "}";
+    private String jsonPayloadSmallDataDifferentValue = "{\n"
+            + "\"id\":\"273645213\",\n"
+            + "\"data\":\"cmVjb2RlZCBtZWxlZWdl\"\n"
+            + "}";
 
-    private String jsonPayloadLargerData = "{\n" +
-            "\"id\":\"273645213\",\n" +
-            "\"data\":\"b3RoZXIgZW5jb2RlZCBtZXNzYWdl\"\n" +
-            "}";
+    private String jsonPayloadLargerData = "{\n"
+            + "\"id\":\"273645213\",\n"
+            + "\"data\":\"b3RoZXIgZW5jb2RlZCBtZXNzYWdl\"\n"
+            + "}";
 
     @Test
     void shouldSaveElementWithLeftSideData() throws Exception  {
