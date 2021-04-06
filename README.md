@@ -16,6 +16,19 @@ point o `<host>/v1/diff/<ID>`
 communicated
 
 ## Project
+
+### Use Cases:
+- Save element data (left or right)
+  - Data must be Base64 encoded, if not an error status is returned.
+  - Data ID must be numeric, if not an error status is returned.
+  - If operation is success, no content is returned.
+  
+- Get differences
+  - Provided ID must be numeric, if not an error status is returned.
+  - If there is only one side with data, comparison process can't be performed, an error 
+    status is returned.
+  - Return payload must show each difference found in the process.  
+
 ### Architecture
 This project is created following clean architecture principles, using onion architecture
 to separate concerns in 2 modules:
