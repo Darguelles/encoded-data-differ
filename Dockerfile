@@ -1,9 +1,7 @@
-FROM openjdk:11
+FROM openjdk:11-jdk
 
-ADD . .
-RUN ./gradlew clean build
-ADD /application/build/libs/application-0.0.1-SNAPSHOT.jar  application-0.0.1-SNAPSHOT.jar
+WORKDIR /usr/src/app
 
-ENV SPRING_PROFILE="dev"
-
-ENTRYPOINT ["sh", "-c", "java -jar  -Dspring.profiles.active=${SPRING_PROFILE}  application-0.0.1-SNAPSHOT.jar"]
+ADD ./ .
+CMD [ "./gradlew", ":application:bootRun" ]
+EXPOSE 8080

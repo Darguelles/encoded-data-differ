@@ -32,7 +32,7 @@ This project provides a [Makefile](Makefile) to make deploy process easier. Just
   execute the following command in the root directory:
   
 ```shell
-make run
+make run_docker
 ```
 
 **Using gradle:**
