@@ -41,15 +41,14 @@ Same as before, you can use the Makefile methods to execute the gradle commands 
   deploy this application. If you want to execute it directly in your terminal using the gradle
 wrapper:
     
-- Compile sources  
+- Build project
 ```shell
 ./gradlew clean build
 ```
 
-- cd into application directory
-
+- Run application:
 ```shell
-../gradlew bootRun
+./gradlew :application:bootRun
 ```
 
 Application runs in the port 8080.
