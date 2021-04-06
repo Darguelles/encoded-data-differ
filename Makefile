@@ -10,3 +10,6 @@ run_int_tests:
 
 run_unit_tests:
 	./gradlew unitTest
+
+run_checkstyle:
+	./gradlew checkstyleMain

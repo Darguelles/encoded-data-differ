@@ -72,6 +72,15 @@ Type the following command to execute all integration test from the application 
 ./gradlew integrationTest
 ```
 
+**Checkstyle**
+
+In order to be aligned with good practices, the project uses checkstyle to scan for possible 
+bad practices in Java syntax.
+
+```shell
+./gradlew checkstyleMain
+./gradlew checkstyleTest
+```
 
 ### Documentation
 This project is documented using OpenAPI v3.0. I you want to know main benefits and 
