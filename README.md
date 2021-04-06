@@ -124,4 +124,6 @@ Method: GET
 - Easy to scale up: We can add more methods using the current resource definition.
 - With the initial URI, the client does not require routing information.
 
-Find the proposed API definition in the V2 documents.
+Find the proposed API definition in the 
+[V2 documents](http://localhost:8080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config#/v2) (
+Application must be running to access). 

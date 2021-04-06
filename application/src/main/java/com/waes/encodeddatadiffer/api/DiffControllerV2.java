@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 
+/**
+ * Proposed API Resource structure
+ */
 @RestController
 @RequestMapping("v2/element")
 public class DiffControllerV2 {
