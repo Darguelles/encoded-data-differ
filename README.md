@@ -6,7 +6,7 @@ Code challenge for Software Engineer position at WAES.
 - Provide 2 http endpoints that accepts JSON base64 encoded binary data on both endpoints
 o `<host>/v1/diff/<ID>/left` and `<host>/v1/diff/<ID>/right`
 - The provided data needs to be diff-ed and the results shall be available on a third end
-point o <host>/v1/diff/<ID>
+point o `<host>/v1/diff/<ID>`
 - The results shall provide the following info in JSON format 
   - If equal return that
   - If not of equal size just return that
@@ -29,7 +29,7 @@ this [ADR](doc/ADR_001_04042021_clean_architecture.md).
 **Using Docker:**
 
 This project provides a [Makefile](Makefile) to make deploy process easier. Just need to 
-  execute the following command:
+  execute the following command in the root directory:
   
 ```shell
 make run
@@ -38,7 +38,8 @@ make run
 **Using gradle:**
 
 Same as before, you can use the Makefile methods to execute the gradle commands and 
-  deploy this application. If you want to execute it directly in your terminal:
+  deploy this application. If you want to execute it directly in your terminal using the gradle
+wrapper:
     
 - Compile sources  
 ```shell
@@ -83,7 +84,7 @@ bad practices in Java syntax.
 ```
 
 ### Documentation
-This project is documented using OpenAPI v3.0. I you want to know main benefits and 
+This project is documented using OpenAPI v3.0. If you want to know main benefits and 
 some nice future improvements, visit the [ADR](doc/ADR_002_05042021_openapi_3.md)
 
 The generated docs are available in:
@@ -95,6 +96,8 @@ to share the API definition, get it from:
 
 http://localhost:8080/v3/api-docs.yaml
 
+The application must be running to access the API docs.
+
 **Code**
 
 Models, Services, VO and Adapters are documented using the Javadoc format.
@@ -102,7 +105,7 @@ Models, Services, VO and Adapters are documented using the Javadoc format.
 ## Proposed Improvements
 
 ### API Resource definition
-In order to follow restful good practices, I found the resource definitions `<host>/v1/diff/<ID>/right` 
+In order to follow RESTful good practices, I found the resource definitions `<host>/v1/diff/<ID>/right` 
 and `<host>/v1/diff/<ID>/left` redundant, due to they refer to the same resource.
 
 Instead, I propose to have the following resource definition for API:

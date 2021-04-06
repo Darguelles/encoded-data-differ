@@ -8,6 +8,14 @@ import java.util.List;
  */
 public class DifferenceCalculator {
 
+    /**
+     * Receive 2 String and scan to find differences between each one.
+     * @param left first String to compare
+     * @param right second String to compare
+     * @return List of Difference
+     *
+     * @see Difference
+     */
     public static List<Difference> scanForDifferences(String left, String right) {
         List<Difference> result = new ArrayList<>();
         String[] leftArray = left.split("");
