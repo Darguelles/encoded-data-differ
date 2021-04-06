@@ -44,41 +44,39 @@ public class DataDifferFacadeBean implements DataDifferFacade {
     private BinaryElement createBinaryElement(DataRequestDTO requestDTO, Long elementID) {
         BinaryElement element;
         switch (requestDTO.getSide().toUpperCase()) {
-            case "LEFT" :
-                element = BinaryElement.builder()
-                        .elementId(elementID)
-                        .left(requestDTO.getData())
-                        .build();
+
+          case "LEFT": element = BinaryElement.builder()
+                    .elementId(elementID)
+                    .left(requestDTO.getData())
+                    .build();
                 break;
 
-            case "RIGHT" :
-                element = BinaryElement.builder()
-                        .elementId(elementID)
-                        .right(requestDTO.getData())
-                        .build();
+          case "RIGHT": element = BinaryElement.builder()
+                    .elementId(elementID)
+                    .right(requestDTO.getData())
+                    .build();
                 break;
 
-            default:
-                element = BinaryElement.builder()
-                        .elementId(elementID)
-                        .build();
+          default: element = BinaryElement.builder()
+                    .elementId(elementID)
+                    .build();
         }
         return element;
     }
 
-    private BinaryElement updateBinaryElement(DataRequestDTO requestDTO, Long elementID, Optional<BinaryElement> fromDatabase) {
+    private BinaryElement updateBinaryElement(DataRequestDTO requestDTO, Long elementID,
+                                              Optional<BinaryElement> fromDatabase) {
         BinaryElement element;
         element = fromDatabase.get();
         switch (requestDTO.getSide().toUpperCase()) {
-            case "LEFT":
-                element.setLeft(requestDTO.getData());
+
+          case "LEFT": element.setLeft(requestDTO.getData());
                 break;
 
-            case "RIGHT":
-                element.setRight(requestDTO.getData());
+          case "RIGHT": element.setRight(requestDTO.getData());
                 break;
-            default:
-                element = BinaryElement.builder()
+
+          default: element = BinaryElement.builder()
                         .elementId(elementID)
                         .build();
         }
@@ -101,8 +99,9 @@ public class DataDifferFacadeBean implements DataDifferFacade {
     @Override
     public BinaryElement getByElementID(Long id) {
         Optional<BinaryElement> fromDatabase = binaryElementService.getById(id);
-        if (fromDatabase.isPresent())
+        if (fromDatabase.isPresent()) {
             return fromDatabase.get();
+        }
 
         return null;
     }

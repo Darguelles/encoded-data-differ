@@ -29,6 +29,7 @@ allprojects {
 	apply plugin: 'io.spring.dependency-management'
 
 	apply from: "${rootProject.rootDir}/config/tests.gradle"
+	apply from: "${rootProject.rootDir}/config/checkstyle.gradle"
 
 	group = 'com.waes'
 	version = '0.0.1-SNAPSHOT'
