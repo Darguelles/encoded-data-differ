@@ -23,7 +23,7 @@ public class DifferenceCalculator {
                 }
             } else {
                 if (index >= 0) { // There's a difference scan in progress
-                   // Store difference in array
+                    // Store difference in array
                     result.add(Difference.builder()
                             .index(index).offset(i).result(left.substring(index, i)).build());
                     // Reset index

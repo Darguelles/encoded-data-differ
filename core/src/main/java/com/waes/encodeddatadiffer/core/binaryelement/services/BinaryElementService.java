@@ -6,7 +6,7 @@ import com.waes.encodeddatadiffer.core.binaryelement.BinaryElementVO;
 import java.util.Optional;
 
 /**
- * BinaryElementService validate business rules and is used to expose the internal core methods to the application layer
+ * BinaryElementService validate business rules and is used to expose the internal core methods to application layer.
  */
 public interface BinaryElementService {
 

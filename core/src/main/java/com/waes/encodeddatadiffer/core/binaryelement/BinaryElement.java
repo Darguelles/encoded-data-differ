@@ -1,11 +1,18 @@
 package com.waes.encodeddatadiffer.core.binaryelement;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
- * BinaryElement represents a single data structure to store values for left and right sections targeting to the same ID.
+ * BinaryElement represents a single data structure to store values for left and right sections related to the same ID.
  */
 @Getter
 @Setter

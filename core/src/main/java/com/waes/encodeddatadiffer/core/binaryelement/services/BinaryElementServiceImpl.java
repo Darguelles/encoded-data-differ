@@ -1,6 +1,9 @@
 package com.waes.encodeddatadiffer.core.binaryelement.services;
 
-import com.waes.encodeddatadiffer.core.binaryelement.*;
+import com.waes.encodeddatadiffer.core.binaryelement.BinaryElement;
+import com.waes.encodeddatadiffer.core.binaryelement.BinaryElementVO;
+import com.waes.encodeddatadiffer.core.binaryelement.Difference;
+import com.waes.encodeddatadiffer.core.binaryelement.DifferenceCalculator;
 import com.waes.encodeddatadiffer.core.binaryelement.exceptions.ElementNotFoundException;
 import com.waes.encodeddatadiffer.core.binaryelement.exceptions.InvalidDataEncryptionException;
 import com.waes.encodeddatadiffer.core.binaryelement.exceptions.MissingElementSideException;
@@ -10,14 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.MissingResourceException;
 import java.util.Optional;
 
-import static com.waes.encodeddatadiffer.core.binaryelement.enums.CompareStatus.*;
+import static com.waes.encodeddatadiffer.core.binaryelement.enums.CompareStatus.DIFFERENT_BY_CONTENT;
+import static com.waes.encodeddatadiffer.core.binaryelement.enums.CompareStatus.DIFFERENT_BY_LENGTH;
+import static com.waes.encodeddatadiffer.core.binaryelement.enums.CompareStatus.EQUAL;
 import static java.util.Collections.emptyList;
 
 @Service
-public class BinaryElementServiceImpl implements BinaryElementService{
+public class BinaryElementServiceImpl implements BinaryElementService {
 
     private BinaryElementQueryAdapter repository;
 
@@ -70,10 +74,10 @@ public class BinaryElementServiceImpl implements BinaryElementService{
 
     private boolean isValidElement(BinaryElement binaryElement) {
         boolean valid = false;
-        if ( binaryElement.getLeft() != null) {
+        if (binaryElement.getLeft() != null) {
             valid = isBase64(binaryElement.getLeft());
         }
-        if ( binaryElement.getRight() != null) {
+        if (binaryElement.getRight() != null) {
             valid = isBase64(binaryElement.getRight());
         }
         return valid;
