@@ -1,7 +1,6 @@
 package com.waes.encodeddatadiffer.api;
 
 import com.waes.encodeddatadiffer.EncodedDataDifferApplication;
-import com.waes.encodeddatadiffer.EncodedDataDifferApplicationTests;
 import com.waes.encodeddatadiffer.api.facade.DataDifferFacade;
 import com.waes.encodeddatadiffer.core.binaryelement.BinaryElement;
 import org.junit.jupiter.api.Test;
@@ -31,20 +30,30 @@ public class DiffControllerV1IT {
     @Autowired
     private MockMvc mvc;
 
-    private String jsonPayloadSmallData = "{\n" +
-            "\"id\":\"273645213\",\n" +
-            "\"data\":\"ZW5jb2RlZCBtZXNzYWdl\"\n" +
-            "}";
+    private String jsonPayloadBadData = "{\n"
+            + "\"id\":\"273645213\",\n"
+            + "\"data\":\"...\"\n"
+            + "}";
 
-    private String jsonPayloadSmallDataDifferentValue = "{\n" +
-            "\"id\":\"273645213\",\n" +
-            "\"data\":\"cmVjb2RlZCBtZWxlZWdl\"\n" +
-            "}";
+    private String jsonPayloadBadID = "{\n"
+            + "\"id\":\"273er4tff\",\n"
+            + "\"data\":\"ZW5jb2RlZCBtZXNzYWdl\"\n"
+            + "}";
 
-    private String jsonPayloadLargerData = "{\n" +
-            "\"id\":\"273645213\",\n" +
-            "\"data\":\"b3RoZXIgZW5jb2RlZCBtZXNzYWdl\"\n" +
-            "}";
+    private String jsonPayloadSmallData = "{\n"
+            + "\"id\":\"273645213\",\n"
+            + "\"data\":\"ZW5jb2RlZCBtZXNzYWdl\"\n"
+            + "}";
+
+    private String jsonPayloadSmallDataDifferentValue = "{\n"
+            + "\"id\":\"273645213\",\n"
+            + "\"data\":\"cmVjb2RlZCBtZWxlZWdl\"\n"
+            + "}";
+
+    private String jsonPayloadLargerData = "{\n"
+            + "\"id\":\"273645213\",\n"
+            + "\"data\":\"b3RoZXIgZW5jb2RlZCBtZXNzYWdl\"\n"
+            + "}";
 
     @Test
     void shouldSaveElementWithLeftSideData() throws Exception  {
@@ -146,5 +155,58 @@ public class DiffControllerV1IT {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.status",is("DIFFERENT_BY_CONTENT")))
                 .andExpect(jsonPath("$.totalDifferences",is(2)));
+    }
+
+    @Test
+    void shouldReturn404IfResourceNotExists() throws Exception {
+        //Given
+        final String elementID = "273645213";
+
+        // Then
+        mvc.perform(get("/v1/diff/{id}", elementID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
+    void shouldReturn422IfThereIsJustOneSideToCompare() throws Exception {
+        //Given
+        final String elementID = "273645213";
+
+        //Then
+        mvc.perform(patch("/v1/diff/{id}/left", elementID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonPayloadSmallData))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+
+        mvc.perform(get("/v1/diff/{id}", elementID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isUnprocessableEntity());
+    }
+
+    @Test
+    void whenSavingShouldReturn400IfDataIsNotEncrypted() throws Exception {
+        //Given
+        final String elementID = "273645213";
+
+        //Then
+        mvc.perform(patch("/v1/diff/{id}/left", elementID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonPayloadBadData))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
+
+    @Test
+    void whenSavingShouldReturn400IfIdIsNotNumeric() throws Exception {
+        //Given
+        final String elementID = "273er4tff";
+
+        //Then
+        mvc.perform(patch("/v1/diff/{id}/left", elementID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonPayloadBadID))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 }

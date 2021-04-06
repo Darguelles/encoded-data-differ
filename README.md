@@ -4,7 +4,7 @@ Code challenge for Software Engineer position at WAES.
 ## Assignment
 
 - Provide 2 http endpoints that accepts JSON base64 encoded binary data on both endpoints
-o <host>/v1/diff/<ID>/left and <host>/v1/diff/<ID>/right
+o `<host>/v1/diff/<ID>/left` and `<host>/v1/diff/<ID>/right`
 - The provided data needs to be diff-ed and the results shall be available on a third end
 point o <host>/v1/diff/<ID>
 - The results shall provide the following info in JSON format 
@@ -72,6 +72,15 @@ Type the following command to execute all integration test from the application 
 ./gradlew integrationTest
 ```
 
+**Checkstyle**
+
+In order to be aligned with good practices, the project uses checkstyle to scan for possible 
+bad practices in Java syntax.
+
+```shell
+./gradlew checkstyleMain
+./gradlew checkstyleTest
+```
 
 ### Documentation
 This project is documented using OpenAPI v3.0. I you want to know main benefits and 
@@ -90,3 +99,40 @@ http://localhost:8080/v3/api-docs.yaml
 
 Models, Services, VO and Adapters are documented using the Javadoc format.
 
+## Proposed Improvements
+
+### API Resource definition
+In order to follow restful good practices, I found the resource definitions `<host>/v1/diff/<ID>/right` 
+and `<host>/v1/diff/<ID>/left` redundant, due to they refer to the same resource.
+
+Instead, I propose to have the following resource definition for API:
+
+Save new element
+```
+URL: localhost:8080/v2/element
+Method: POST 
+Body: {"side":"LEFT", "data" : "ZW5jb2RlZCBtZXNzYWdl"}
+```
+
+Update stored element
+```
+URL: localhost:8080/v2/element/{ID}
+Method: PATCH 
+Body: {"side":"LEFT", "data" : "ZW5jb2RlZCBtZXNzYWdl"}
+```
+
+Get differences
+```
+URL: localhost:8080/v2/element/{ID}/diff
+Method: GET
+```
+
+**Benefits from this approach**
+
+- Resource definition clearer. We are creating, updating and getting the diff resource.
+- Easy to scale up: We can add more methods using the current resource definition.
+- With the initial URI, the client does not require routing information.
+
+Find the proposed API definition in the 
+[V2 documents](http://localhost:8080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config#/v2) (
+Application must be running to access). 
